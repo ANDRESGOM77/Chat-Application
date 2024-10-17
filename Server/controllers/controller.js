@@ -70,6 +70,8 @@ export const login = async (req, res) => {
       username: user.username,
       profilePic: user.profilePic,
     });
+    console.log("user log in successfully");
+    
   } catch (error) {
     console.log("Error in log in controller", error.message);
 

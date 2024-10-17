@@ -7,13 +7,12 @@ export const sendMessage = async (req, res) => {
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
-    let conversations = await Conversation.findOne({});
-    participants: {
-      $all: [senderId, receiverId];
-    }
+    let conversation = await Conversation.findOne({
+      participants: { $all: [senderId, receiverId] }
+    });
 
-    if (!conversations) {
-      conversations = await Conversation.create({
+    if (!conversation) {
+      conversation = await Conversation.create({
         participants: [senderId, receiverId],
       });
     }
@@ -25,30 +24,36 @@ export const sendMessage = async (req, res) => {
     });
 
     if (newMessage) {
-      conversations.messages.push(newMessage._id);
+      conversation.messages.push(newMessage._id);
     }
 
-    await Promise.all([conversations.save(), message.save()]);
+    await Promise.all([conversation.save(), newMessage.save()]);
+
     res.status(201).json(newMessage);
   } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
+    console.log("no able to send the message", error);
+
+    res.status(500).json({ error: "Internal server error " });
   }
 };
 
-export const getMessage = async (req,res) => {
-    try {
-        const {id:userToChadId} = req.params
-        const senderId = req.user._id
+export const getMessage = async (req, res) => {
+  try {
+    const { id: userToChadId } = req.params;
+    const senderId = req.user._id;
 
-        const conversation = await Conversation.findOne({
-            participants:{$all:[senderId,userToChadId]}
-        }).populate("messages")
-        if(!conversation){
-            res.status(200).json([])
-        }
-        const messages= conversation.messages
-        res.status(200).json(messages)
-    } catch (error) {
-        res.status(500).json({ error: "Internal server error" });
+    const conversation = await Conversation.findOne({
+      participants: { $all: [senderId, userToChadId] },
+    }).populate("messages");
+
+    if (!conversation) {
+      return res.status(200).json([]);
     }
-}
+    const messages = conversation.messages;
+    res.status(200).json(messages);
+  } catch (error) {
+    console.log("error in get Message",error.message);
+
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
