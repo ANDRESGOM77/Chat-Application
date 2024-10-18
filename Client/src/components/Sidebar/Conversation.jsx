@@ -3,8 +3,7 @@ import useConversation from "../../store/useConversation";
 const Conversation = ({ conversation, lastIdx, emoji }) => {
   const { selectedConversation, setSelectedConversation } = useConversation();
   const isSelected = selectedConversation?._id === conversation._id;
-  console.log("Conversation data:", conversation);
-  console.log("Profile pic URL:", conversation.profilePic);
+
   return (
     <>
       <div
