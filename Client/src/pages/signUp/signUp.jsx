@@ -63,7 +63,7 @@ const SignUp = () => {
               <span className="text-base label-text"> Password </span>
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               className="w-full input input-bordered h-10 input-md"
               value={inputs.password}
@@ -77,7 +77,7 @@ const SignUp = () => {
               <span className="text-base label-text"> Confirm Password </span>
             </label>
             <input
-              type="text"
+              type="password"
               placeholder="Confirm Password"
               className="w-full input input-bordered h-10 input-md"
               value={inputs.confirmPassword}
@@ -97,7 +97,13 @@ const SignUp = () => {
             Already have an account?
           </Link>
           <div>
-            <button className="btn btn-block btn-sm mt-2">Sign Up</button>
+            <button className="btn btn-block btn-sm mt-2" disabled={loading}>
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Sign Up"
+              )}
+            </button>
           </div>
         </form>
       </div>
