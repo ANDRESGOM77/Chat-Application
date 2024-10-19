@@ -17,15 +17,13 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
     //https://avatar-placeholder.iran.liara.run/
-    const boyProfilePic = `https://avatar-placeholder.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePic = `https://avatar-placeholder.iran.liara.run/public/girl?username=${username}`;
-
+    const profilePic = `https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=random`;
     const newUser = new User({
       fullName,
       username,
       password: hashPassword,
       gender,
-      profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
+      profilePic,
     });
     if (newUser) {
       //JWT token
@@ -53,16 +51,19 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { username, password } = req.body;
+    console.log("Login attempt for username:", username);
     const user = await User.findOne({ username });
-    const passwordCorrect = await bcrypt.compare(
-      password,
-      user?.password || ""
-    );
-
-    if (!user || !passwordCorrect) {
+    if (!user) {
+      console.log("User not found:", username);
+      return res.status(400).json({ error: "Invalid username or password" });
+    }
+    const passwordCorrect = await bcrypt.compare(password, user.password);
+    console.log("Password correct:", passwordCorrect);
+    if (!passwordCorrect) {
       return res.status(400).json({ error: "Invalid username or password" });
     }
     generateTokenAndSetCookie(user._id, res);
+    console.log("Login successful for user:", username);
 
     res.status(200).json({
       _id: user._id,
@@ -73,9 +74,8 @@ export const login = async (req, res) => {
     console.log("user log in successfully");
     
   } catch (error) {
-    console.log("Error in log in controller", error.message);
-
-    res.status(500).json({ message: "Error signing up user" });
+    console.error("Error in login controller:", error);
+    res.status(500).json({ message: "Error logging in user" });
   }
 };
 export const logout = (req, res) => {
