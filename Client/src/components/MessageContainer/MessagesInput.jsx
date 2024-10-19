@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LuSend } from "react-icons/lu";
-import useSendMessage from "../../hooks/useSendMessage";
+import useSendMessage from "../../hooks/useSendMessage.js";
 
 const MessagesInput = () => {
   const [message, setMessage] = useState("");

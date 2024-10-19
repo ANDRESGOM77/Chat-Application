@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import useConversation from "../../store/useConversation";
-import Messages from "../messageContainer/Messages";
-import MessagesInput from "../messageContainer/MessagesInput";
+import Messages from "../messageContainer/Messages.jsx";
+import MessagesInput from "../messageContainer/MessagesInput.jsx";
 import { TiMessage } from "react-icons/ti";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 
 const MessageContainer = () => {
   const { selectedConversation, setSelectedConversation } = useConversation();

@@ -1,8 +1,8 @@
-import useGetMessages from "../../hooks/useGetMessages";
-import Message from "./Message";
-import MessageSkeleton from "../skeletons/MessageSkeleton";
+import useGetMessages from "../../hooks/useGetMessages.js";
+import Message from "./Message.jsx";
+import MessageSkeleton from "../skeletons/MessageSkeleton.jsx";
 import { useEffect, useRef } from "react";
-import useListenMessages from "../../hooks/useListenMessages";
+import useListenMessages from "../../hooks/useListenMessages.js";
 
 const Messages = () => {
   const { messages, loading } = useGetMessages();
