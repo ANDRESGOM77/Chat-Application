@@ -82,7 +82,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Links
 
-- Link of deployment: 
+- Link of deployment:
 
 ## License
 
