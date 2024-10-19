@@ -1,13 +1,13 @@
-import Sidebar from "../../components/sideBar/SidebarComponent.jsx"
-import MessageContainer from "../../components/messageContainer/messageContainer.jsx"
+import Sidebar from "../../components/skeletons/SidebarComponent.jsx";
+import MessageContainer from "../../components/messageContainer/messageContainer.jsx";
 
 const HomePage = () => {
   return (
-    <div  className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 ">
+    <div className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0 ">
       <Sidebar />
-      <MessageContainer/>
+      <MessageContainer />
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;
