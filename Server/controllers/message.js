@@ -1,5 +1,7 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
+import { getReceiverSocketId } from "../socket/socket.js";
+import { io } from "../socket/socket.js";
 
 export const sendMessage = async (req, res) => {
   try {
@@ -8,7 +10,7 @@ export const sendMessage = async (req, res) => {
     const senderId = req.user._id;
 
     let conversation = await Conversation.findOne({
-      participants: { $all: [senderId, receiverId] }
+      participants: { $all: [senderId, receiverId] },
     });
 
     if (!conversation) {
@@ -28,6 +30,11 @@ export const sendMessage = async (req, res) => {
     }
 
     await Promise.all([conversation.save(), newMessage.save()]);
+
+    const receiverSockId = getReceiverSocketId(receiverId);
+    if (receiverSockId) {
+      io.to(receiverSockId).emit("newMessage", newMessage);
+    }
 
     res.status(201).json(newMessage);
   } catch (error) {
@@ -52,7 +59,7 @@ export const getMessage = async (req, res) => {
     const messages = conversation.messages;
     res.status(200).json(messages);
   } catch (error) {
-    console.log("error in get Message",error.message);
+    console.log("error in get Message", error.message);
 
     res.status(500).json({ error: "Internal server error" });
   }
