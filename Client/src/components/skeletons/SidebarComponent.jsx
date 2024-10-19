@@ -1,4 +1,4 @@
-import Conversations from "../sideBar/Conversations.jsx";
+import Conversations from "../sideBar/Conversations";
 import SearchInput from "./SearchInput.jsx";
 import LogoutButton from "./LogoutButton.jsx";
 
