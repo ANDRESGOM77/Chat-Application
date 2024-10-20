@@ -10,16 +10,22 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Form validation
+    if (!username.trim() || !password.trim()) {
+      toast.error("Please enter both username and password");
+      return;
+    }
+
     try {
       await login(username, password);
-      // If login is successful, this line should execute
-      console.log("Login successful");
+      toast.success("Login successful");
       // Clear the form fields on successful login
       setUsername("");
       setPassword("");
     } catch (error) {
       console.error("Login error:", error);
-      toast.error("Login failed: " + error.message);
+      toast.error(error.message || "Login failed. Please try again.");
     }
   };
 
@@ -33,7 +39,7 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <label className="label p-2">
-              <span className="text-base label-text"> Username</span>
+              <span className="text-base label-text">Username</span>
             </label>
             <input
               type="text"
@@ -41,11 +47,12 @@ const Login = () => {
               className="w-full input input-bordered h-10 input-md"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              disabled={loading}
             />
           </div>
           <div>
             <label className="label p-2">
-              <span className="text-base label-text"> Password</span>
+              <span className="text-base label-text">Password</span>
             </label>
             <input
               type="password"
@@ -53,17 +60,26 @@ const Login = () => {
               className="w-full input input-bordered h-10 input-md"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
             />
           </div>
           <Link
             to="/signup"
             className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"
           >
-            {"Don't"} have an account
+            {`Don't`} have an account?
           </Link>
           <div>
-          <button className="btn btn-block btn-sm mt-2" disabled={loading}>
-              {loading ? <span className="loading loading-spinner"></span> : "Login"}
+            <button 
+              className="btn btn-block btn-sm mt-2" 
+              disabled={loading}
+              type="submit"
+            >
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Login"
+              )}
             </button>
           </div>
         </form>

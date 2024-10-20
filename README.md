@@ -3,6 +3,7 @@
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
+2. [Video Demonstration](#video-demonstration)
 2. [Technologies Used](#technologies-used)
 3. [Project Structure](#project-structure)
 4. [Setup and Installation](#setup-and-installation)
@@ -15,6 +16,10 @@
 ## Project Overview
 
 This project is a real-time chat application built using React for the frontend and Node.js with Express for the backend. It allows users to sign up, log in, and engage in real-time conversations with other users.
+
+## Video Demonstration  
+
+- [![Video](assets/video.mp4)](./Client/src/assets/videos/ShowingApp.mp4)
 
 ## Technologies Used
 
@@ -80,9 +85,6 @@ Contains the Node.js backend application.
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Links
-
-- Link of deployment:
 
 ## License
 
