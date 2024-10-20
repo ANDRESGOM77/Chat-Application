@@ -1,5 +1,5 @@
-import Sidebar from "../../components/skeletons/SidebarComponent.jsx";
-import MessageContainer from "../../components/skeletons/MessageContainerComponent.jsx";
+import Sidebar from "../../components/sideBar/SidebarComponent.jsx";
+import MessageContainer from "../../components/messageContainer/MessageContainerComponent.jsx";
 
 const HomePage = () => {
   return (

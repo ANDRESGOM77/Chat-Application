@@ -19,7 +19,7 @@ This project is a real-time chat application built using React for the frontend 
 
 ## Video Demonstration  
 
-- 
+- [![Video](./Client/src/assets/videos/ShowingApp.mp4)]
 
 ## Technologies Used
 
